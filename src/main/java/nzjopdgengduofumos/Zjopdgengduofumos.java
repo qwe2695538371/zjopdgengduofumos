@@ -2,6 +2,7 @@ package nzjopdgengduofumos;
 
 import net.fabricmc.api.ModInitializer;
 
+import nzjopdgengduofumos.registry.ModEnchantments;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,7 +19,8 @@ public class Zjopdgengduofumos implements ModInitializer {
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
-
-		LOGGER.info("Hello Fabric world!");
+		// 注册附魔
+		ModEnchantments.registerEnchantments();
+		LOGGER.info("所有附魔初始化完成！");
 	}
 }
