@@ -1,5 +1,8 @@
 package nzjopdgengduofumos.event.enchantment;
 
+import net.minecraft.entity.EntityGroup;
+import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.item.ItemStack;
 import nzjopdgengduofumos.registry.ModEnchantments;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -29,13 +32,20 @@ public class CriticalStrikeEvents {
     private static void registerAttackEvent() {
         AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
             if (hand == Hand.MAIN_HAND && !world.isClient) {
-                int level = EnchantmentHelper.getLevel(ModEnchantments.CRITICAL_STRIKE,
-                        player.getMainHandStack());
+                ItemStack weapon = player.getMainHandStack();
+                int level = EnchantmentHelper.getLevel(ModEnchantments.CRITICAL_STRIKE, weapon);
 
                 if (level > 0 && CriticalStrikeEnchantment.shouldTriggerCritical(level)) {
-                    // 在原有伤害基础上额外造成一次伤害
-                    entity.damage(world.getDamageSources().playerAttack(player),
-                            player.getAttackDamage());
+                    // 获取基础攻击伤害
+                    double baseAttackDamage = player.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE);
+                    // 获取附魔加成伤害
+                    float enchantmentDamage = EnchantmentHelper.getAttackDamage(weapon, EntityGroup.DEFAULT);
+                    // 计算总伤害
+                    float totalDamage = (float)baseAttackDamage + enchantmentDamage;
+                    // 造成双倍伤害
+                    entity.damage(world.getDamageSources().playerAttack(player), totalDamage * 2);
+                    // 取消原有的伤害事件
+                    return ActionResult.SUCCESS;
                 }
             }
             return ActionResult.PASS;
