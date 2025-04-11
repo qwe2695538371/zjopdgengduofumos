@@ -3,6 +3,7 @@ package nzjopdgengduofumos;
 import net.fabricmc.api.ModInitializer;
 
 import nzjopdgengduofumos.registry.ModEnchantments;
+import nzjopdgengduofumos.registry.ModEvents;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,6 +22,9 @@ public class Zjopdgengduofumos implements ModInitializer {
 		// Proceed with mild caution.
 		// 注册附魔
 		ModEnchantments.registerEnchantments();
+
+		// 注册事件监听器
+		ModEvents.registerEvents();
 		LOGGER.info("所有附魔初始化完成！");
 	}
 }
