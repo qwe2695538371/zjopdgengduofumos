@@ -1,4 +1,7 @@
 {
   "enchantment.zjopdgengduofumos.critical_strike": "会心一击",
-  "enchantment.zjopdgengduofumos.critical_strike.desc": "有几率造成更高伤害"
+  "enchantment.zjopdgengduofumos.critical_strike.desc": "有几率造成更高伤害",
+  "enchantment.zjopdgengduofumos.potion_prohibition": "药水禁止",
+  "enchantment.zjopdgengduofumos.potion_prohibition.desc": "防止穿戴者受到任何药水效果的影响"
+
 }
